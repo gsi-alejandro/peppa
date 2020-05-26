@@ -1,30 +1,16 @@
-import { openBucket } from "../src/index";
-const bucketName = "travel-sample";
-const username = "admin";
-const password = "password";
-const connectionString = "couchbase://localhost";
-beforeEach(async () => {
-  const { bucket, cluster } = openBucket({
-    connectionString,
-    username,
-    password,
-    bucketName,
-  });
-  const collection = bucket.defaultCollection();
-  (global as any).__couchbase = {
-    collection,
-    bucket,
-    cluster,
-  };
+import { closeCluster, connect } from '../src/index';
+import { bucketName, connectionString, connectUri, password, username } from './testData';
+beforeAll(async () => {
+  connect(connectUri);
+
+  // alternative connectio way
+  // connect({
+  //   connectionString,
+  //   username,
+  //   password,
+  // }).getBucket(bucketName);
 });
 
 afterAll(async () => {
-  const { cluster } = (global as any).__couchbase;
-
-  //  this way we can get a bucket connection and close it
-  const conn = cluster._getConn({bucketName})
-  conn.close();
-
-  // get cluster instance and close it and all its bucket connection to allow jest finish correctly
-  cluster.close();
+  closeCluster();
 });
