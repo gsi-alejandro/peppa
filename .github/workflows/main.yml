@@ -18,19 +18,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node_version: ['8', '10', '12']
+        node_version: ['12']
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    - name: Start Coucbase Sandbox server
-      run: sudo docker run -d --name couchbase-sandbox -p 8091-8094:8091-8094 -p 11210:11210 couchbase/server-sandbox:6.5.0
-
     # Runs a single command using the runners shell
     - name: Run scripts
       run: |
+        sudo docker run -d --name couchbase-sandbox -p 8091-8094:8091-8094 -p 11210:11210 couchbase/server-sandbox:6.5.0
         npm install
         npm run build
         npm run test
