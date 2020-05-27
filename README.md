@@ -1,3 +1,5 @@
+![CI](https://github.com/gsi-alejandro/peppa/workflows/CI/badge.svg?branch=master)
+
 # Getting started
 
 ```typescript
