@@ -1,6 +1,4 @@
-import { createModel } from '../lib'
-
-const collectionName = 'col1'
+import { createModel } from '../lib';
 
 class User {
   constructor(public name: string) {}
@@ -15,7 +13,7 @@ const doc = {
   isActive: false,
   createAt: new Date(),
   name: 'Ottoman',
-}
+};
 
 test('insert 1 document', async () => {
   const schema = {
@@ -25,17 +23,17 @@ test('insert 1 document', async () => {
     isActive: Boolean,
     letters: [String],
     user: User,
-  }
-  const Model = createModel(collectionName, schema)
-  const document = new Model(doc)
-  const key = `${doc.type}_${doc.id}`
-  const result = await document.save(key)
-  expect(result.token).toBeDefined()
-})
+  };
+  const UserModel = createModel('User', schema);
+  const document = new UserModel(doc);
+  const key = `${doc.type}_${doc.id}`;
+  const result = await document.save(key);
+  expect(result.token).toBeDefined();
+});
 
 test('query created document', async () => {
-  const Model = createModel(collectionName)
-  const key = `${doc.type}_${doc.id}`
-  const result = await Model.find(key)
-  expect(result.value).toBeDefined()
-})
+  const UserModel = createModel('User');
+  const key = `${doc.type}_${doc.id}`;
+  const result = await UserModel.find(key);
+  expect(result.value).toBeDefined();
+});
