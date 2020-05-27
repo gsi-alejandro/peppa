@@ -1,1 +1,1 @@
-declare module 'couchbase';
+declare module 'couchbase'

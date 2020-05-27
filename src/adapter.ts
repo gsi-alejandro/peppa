@@ -1,74 +1,75 @@
-import couchbase from 'couchbase';
-import { extractConnectionString } from './utils';
+import couchbase from 'couchbase'
+import { extractConnectionString } from './utils'
 
 export interface ConnectOptions {
-  connectionString: string;
-  username: string;
-  password: string;
-  bucketName?: string;
+  connectionString: string
+  username: string
+  password: string
+  bucketName?: string
 }
-class Peppa {
-  cluster;
-  bucketName = '';
-  buckets: any = {};
+
+class PackageName {
+  cluster
+  bucketName = ''
+  buckets: any = {}
 
   connect(connectOptions: ConnectOptions | string) {
     const { connectionString, password, username, bucketName } =
-      typeof connectOptions === 'object' ? connectOptions : extractConnectionString(connectOptions);
+      typeof connectOptions === 'object' ? connectOptions : extractConnectionString(connectOptions)
     const cluster = new couchbase.Cluster(connectionString, {
       username,
       password,
-    });
-    this.cluster = cluster;
+    })
+    this.cluster = cluster
     if (bucketName) {
-      this.getBucket(bucketName);
+      this.getBucket(bucketName)
     }
-    return this.cluster;
+    return this.cluster
   }
 
   getCollection(collectionName?: string) {
-    const bucket = this.getBucket();
-    return collectionName ? bucket.collection(collectionName) : bucket.defaultCollection();
+    const bucket = this.getBucket()
+    return collectionName ? bucket.collection(collectionName) : bucket.defaultCollection()
   }
 
   getBucket(name?: string) {
-    let bucketName = name || this.bucketName;
+    const bucketName = name || this.bucketName
 
     if (!this.bucketName && bucketName) {
-      this.bucketName = bucketName;
+      this.bucketName = bucketName
     }
 
-    let bucket = this.buckets[bucketName];
+    let bucket = this.buckets[bucketName]
     if (bucket) {
-      return bucket;
+      return bucket
     }
-    bucket = this.cluster.bucket(bucketName);
-    this.buckets[bucketName] = bucket;
-    return this.buckets[bucketName];
+    bucket = this.cluster.bucket(bucketName)
+    this.buckets[bucketName] = bucket
+    return this.buckets[bucketName]
   }
 
   close() {
-    this.cluster.close();
+    this.cluster.close()
   }
 }
 
-export const instance = new Peppa();
+export const instance = new PackageName()
 
 export const connect = (connectOptions: ConnectOptions | string) => {
-  instance.connect(connectOptions);
-  return instance;
-};
+  instance.connect(connectOptions)
+  return instance
+}
 
 export const openBucket = (options: ConnectOptions) => {
-  const { bucketName, ...connectionOptions } = options;
-  connect(connectionOptions).getBucket(bucketName);
-  return instance;
-};
+  const { bucketName, ...connectionOptions } = options
+  connect(connectionOptions).getBucket(bucketName)
+  return instance
+}
 
 export const getCollection = (collectionName?: string) => {
-  return instance.getCollection(collectionName);
-};
+  return instance.getCollection(collectionName)
+}
 
 export const close = () => {
-  instance.close();
-};
+  instance.close()
+}

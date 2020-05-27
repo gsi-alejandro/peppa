@@ -1,16 +1,9 @@
-import { closeCluster, connect } from '../src/index';
-import { bucketName, connectionString, connectUri, password, username } from './testData';
+import { closeCluster, connect } from '../lib/index'
+import { bucketName, connectionString, connectUri, password, username } from './testData'
 beforeAll(async () => {
-  connect(connectUri);
-
-  // alternative connectio way
-  // connect({
-  //   connectionString,
-  //   username,
-  //   password,
-  // }).getBucket(bucketName);
-});
+  connect(connectUri)
+})
 
 afterAll(async () => {
-  closeCluster();
-});
+  closeCluster()
+})
