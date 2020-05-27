@@ -14,11 +14,18 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
+    # Services
+    services:
+      couchbase:
+        image: couchbase/server-sandbox:6.5.0
+        ports:
+          - 8091-8094:8091-8094
+          - 11210:11210
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node_version: ['12']
+        node_version: ['8', '10', '12']
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -28,9 +35,7 @@ jobs:
     # Runs a single command using the runners shell
     - name: Run scripts
       run: |
-        sudo docker run -d --name couchbase-sandbox -p 8091-8094:8091-8094 -p 11210:11210 couchbase/server-sandbox:6.5.0
         npm install
         npm run build
-        npm run test
         npm run docs
         
