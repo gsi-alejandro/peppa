@@ -16,7 +16,7 @@ const user = new User({name:'Jane Doe'});
 user.save().then(() => console.log('Nice Job!'));
 ```
 
-####Ottoman v2 main goals
+#### Ottoman v2 main goals
 - [x] Start migration from v1 to v2
 - [ ] Add support to Couchbase SDK 3
 - [ ] Add typescript support
