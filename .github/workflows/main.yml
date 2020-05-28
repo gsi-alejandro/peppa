@@ -23,9 +23,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run scripts
-        run: |
-          npm install
-          npm run build
-          npm run test
-          npm run docs
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm build
+
+      - name: Test
+        run: npm test
+
+      - name: Generate Docs
+        run: npm test
