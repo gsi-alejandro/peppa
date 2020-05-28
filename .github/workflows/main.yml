@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
@@ -14,19 +14,18 @@ jobs:
         ports:
           - 8091-8094:8091-8094
           - 11210:11210
-            
+
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node_version: ['10', '12']
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Run scripts
-      run: |
-        npm install
-        npm run build
-        npm run test
-        npm run docs
-        
+      - name: Run scripts
+        run: |
+          npm install
+          npm run build
+          npm run test
+          npm run docs

@@ -6,4 +6,4 @@ module.exports = {
       { text: 'External', link: 'https://google.com' },
     ],
   },
-}
+};

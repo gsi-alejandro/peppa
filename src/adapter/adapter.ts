@@ -5,47 +5,24 @@ export interface ConnectOptions {
   connectionString: string;
   username: string;
   password: string;
-  bucketName?: string;
+  bucketName: string;
 }
 
-class PackageName {
-  cluster;
-  bucketName = '';
-  buckets: any = {};
+class ConnectionManager {
+  bucket;
+  collections: any = {};
 
-  connect(connectOptions: ConnectOptions | string) {
-    const { connectionString, password, username, bucketName } =
-      typeof connectOptions === 'object' ? connectOptions : extractConnectionString(connectOptions);
-    const cluster = new couchbase.Cluster(connectionString, {
-      username,
-      password,
-    });
-    this.cluster = cluster;
-    if (bucketName) {
-      this.getBucket(bucketName);
-    }
-    return this.cluster;
+  constructor(public cluster, public bucketName: string) {
+    this.bucket = cluster.bucket(bucketName);
   }
 
-  getCollection(collectionName?: string) {
-    const bucket = this.getBucket();
-    return collectionName ? bucket.collection(collectionName) : bucket.defaultCollection();
-  }
-
-  getBucket(name?: string) {
-    const bucketName = name || this.bucketName;
-
-    if (!this.bucketName && bucketName) {
-      this.bucketName = bucketName;
+  getCollection(collectionName = 'default') {
+    let collection = this.collections[collectionName];
+    if (!collection) {
+      collection = collectionName ? this.bucket.collection(collectionName) : this.bucket.defaultCollection();
+      this.collections[collectionName] = collection;
     }
-
-    let bucket = this.buckets[bucketName];
-    if (bucket) {
-      return bucket;
-    }
-    bucket = this.cluster.bucket(bucketName);
-    this.buckets[bucketName] = bucket;
-    return this.buckets[bucketName];
+    return collection;
   }
 
   close() {
@@ -53,23 +30,26 @@ class PackageName {
   }
 }
 
-export const instance = new PackageName();
+let instance;
 
-export const connect = (connectOptions: ConnectOptions | string) => {
-  instance.connect(connectOptions);
-  return instance;
-};
-
-export const openBucket = (options: ConnectOptions) => {
-  const { bucketName, ...connectionOptions } = options;
-  connect(connectionOptions).getBucket(bucketName);
-  return instance;
+export const connect = (connectOptions: string) => {
+  const { connectionString, password, username, bucketName } =
+    typeof connectOptions === 'object' ? connectOptions : extractConnectionString(connectOptions);
+  const cluster = new couchbase.Cluster(connectionString, {
+    username,
+    password,
+  });
+  const connection = new ConnectionManager(cluster, bucketName);
+  if (!instance) {
+    instance = connection;
+  }
+  return connection;
 };
 
 export const getCollection = (collectionName?: string) => {
   return instance.getCollection(collectionName);
 };
 
-export const close = () => {
+export const closeConnection = () => {
   instance.close();
 };

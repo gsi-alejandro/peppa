@@ -1,82 +1,82 @@
 ![CI](https://github.com/gsi-alejandro/peppa/workflows/CI/badge.svg?branch=master)
 
-# Getting started
+## Introduction
+Ottoman's goal is to provide a better development experience while using Couchbase,
+bringing to developers a reliable tool to build easy-to-design, maintain and scale systems.
 
-```typescript
-import { connect, createModel } from "package-name";
+#### Getting started
+
+```javascript
+import { connect, createModel } from "ottoman";
 connect("couchbase://localhost/travel-sample@admin:password");
 
-const Furniture = createModel('Furniture', { name: String });
+const User = createModel('User', { name: String });
 
-const couch = new Furniture({name:'Couch'});
-couch.save().then(() => console.log('Nice Job!'));
-```
-
-
-# Development Guide
-Clone repo
-
-Install dependencies
-```
-$ yarn install
+const user = new User({name:'Jane Doe'});
+user.save().then(() => console.log('Nice Job!'));
 ```
 
-Compile ts watching for changes
-```
-yarn dev
-```
+####Ottoman v2 main goals
+- [x] Start migration from v1 to v2
+- [ ] Add support to Couchbase SDK 3
+- [ ] Add typescript support
 
-Run test watching for lib changes (recommended: run along side with yarn dev - in other terminal or use IDE run tools)
-```
-yarn test:dev
-```
+...and many more, new features coming soon.
 
-Formatting code (configure IDE or Editor to improve format XP)
-```
-$ yarn lint
-```
+## Documentation
 
-# Generate documentation
-```
-yarn docs
-```
+To check out [examples](https://github.com/couchbaselabs/node-ottoman/blob/master/docs/first-app.md) and docs, visit [ottomanjs.com](http://ottomanjs.com).
 
-local publish docs recommended way:
-```
-$ yarn global add serve
-$ serve docs/.vuepress/dist
-```
+## Questions
 
-# Environment setup (node version 12 LTS)
+For questions and support please use [the official forum](http://forum.ottomanjs.com) or [contact community](http://couchbase.com/communities/nodejs). 
 
-1- Install and run couchbase sandbox
+## Issues
 
+Please make sure to read the [Issue Reporting Checklist](https://github.com/couchbaselabs/node-ottoman/blob/dev/.github/CONTRIBUTING.md#issue-reporting-guidelines) before opening an issue.
+ 
+## Changelog
+
+Detailed changes for each release are documented in the [release notes](https://github.com/couchbaselabs/node-ottoman/releases).
+
+## Stay In Touch
+
+- [Twitter](https://twitter.com/ottoman)
+- [Blog](https://medium.com/ottoman)
+
+## Contribution
+
+Please make sure to read the [Contributing Guide](https://github.com/couchbaselabs/node-ottoman) before making a pull request. 
+Thank you to all the people who already contributed to Couchbase Ottoman!
+
+#### Development Guide
+
+1. Install and run couchbase sandbox
 ```
 $ docker run -t --name couchbase-sandbox -p 8091-8094:8091-8094 -p 11210:11210 couchbase/server-sandbox:6.5.0
 ```
 
-2- Get repo and install dependencies 
+2. Get repo and install dependencies 
 ```
-$ git clone https://github.com/gsi-alejandro/package-name.git
-$ cd package-name
+$ git clone https://github.com/couchbaselabs/node-ottoman.git
+$ cd node-ottoman
 $ yarn install
 ```
 
-
-3- Run command test 
-
-```
-$ yarn test
-```
-<small> test will save a document and get it from db.</small>
-
-4- Check results on  http://localhost:8091/ 
-
-
-
-
-## Other scripts
+3- Available scripts
 ```
 $ yarn dev
 $ yarn build
+$ yarn lint
+$ yarn test
 $ yarn test --coverage
+$ yarn docs
+```
+Check results on [http://localhost:8091/](http://localhost:8091/) couchbase web client
+
+## License
+© Copyright 2013 Couchbase Inc.
+
+Licensed under the Apache License, Version 2.0.
+See [the Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0).
+
