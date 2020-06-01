@@ -1,4 +1,7 @@
-![CI](https://github.com/gsi-alejandro/peppa/workflows/CI/badge.svg?branch=master)
+![CI](https://github.com/couchbaselabs/node-ottoman/workflows/CI/badge.svg?branch=v2) 
+[![npm version](https://badge.fury.io/js/ottoman.svg)](https://badge.fury.io/js/ottoman)
+![npm](https://img.shields.io/npm/dw/ottoman)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Introduction
 Ottoman's goal is to provide a better development experience while using Couchbase,
@@ -20,7 +23,8 @@ user.save().then(() => console.log('Nice Job!'));
 - [x] Start migration from v1 to v2
 - [ ] Add support to Couchbase SDK 3
 - [ ] Add typescript support
-
+- [ ] Update Documentation and Examples
+ 
 ...and many more, new features coming soon.
 
 ## Documentation
@@ -63,7 +67,7 @@ $ cd node-ottoman
 $ yarn install
 ```
 
-3- Available scripts
+3. Available scripts
 ```
 $ yarn dev
 $ yarn build

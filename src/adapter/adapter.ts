@@ -10,7 +10,7 @@ export interface ConnectOptions {
 
 class ConnectionManager {
   bucket;
-  collections: any = {};
+  collections: { [key: string]: string } = {};
 
   constructor(public cluster, public bucketName: string) {
     this.bucket = cluster.bucket(bucketName);
