@@ -35,5 +35,10 @@ jobs:
       - name: Generate Docs
         run: npm run docs
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Build coverage badge
+        run: npm run badge
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: coverage.svg
+          path: coverage/badge.svg
