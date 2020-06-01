@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [v2]
+    branches: [master]
   pull_request:
-    branches: [v2]
+    branches: [master]
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node_version: ['10', '12']
+        node_version: ['12']
 
     steps:
       - uses: actions/checkout@v2
@@ -30,7 +30,7 @@ jobs:
         run: npm run build
 
       - name: Test
-        run: npm run test --coverage
+        run: npm run test:coverage
 
       - name: Generate Docs
         run: npm run docs
