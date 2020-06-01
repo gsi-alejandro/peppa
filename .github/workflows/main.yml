@@ -30,15 +30,15 @@ jobs:
         run: npm run build
 
       - name: Test
-        run: npm run test:coverage
+        run: npm run test
 
-      - name: Generate Docs
-        run: npm run docs
+#      - name: Generate Docs
+#        run: npm run docs
 
-      - name: Build coverage badge
-        run: npm run badge
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: coverage.svg
-          path: coverage/badge.svg
+#      - name: Build coverage badge
+#        run: npm run badge
+#
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: coverage.svg
+#          path: coverage/badge.svg
