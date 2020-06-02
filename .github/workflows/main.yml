@@ -36,8 +36,8 @@ jobs:
 #          restore-keys: |
 #            ${{ runner.os }}-yarn-
 
-      - name: Install Dependencies
-        run: npm t
+#     - name: Install Dependencies
+#       run: npm t
 
       - name: Build
         run: yarn build
